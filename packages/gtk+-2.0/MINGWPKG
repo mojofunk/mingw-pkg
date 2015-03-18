@@ -1,0 +1,226 @@
+#!/bin/bash
+
+COMMON_DLLS='
+jack-0.dll
+jackserver-0.dll
+libatk-1.0-0.dll
+libatkmm-1.6-1.dll
+libbz2-1.dll
+libcairo-2.dll
+libcairo-gobject-2.dll
+libcairomm-1.0-1.dll
+libcairo-script-interpreter-2.dll
+libcppunit-1-12-1.dll
+libcurl-4.dll
+libexpat-1.dll
+libfftw3-3.dll
+libfftw3f-3.dll
+libfontconfig-1.dll
+libfreetype-6.dll
+libgailutil-18.dll
+libgdkmm-2.4-1.dll
+libgdk_pixbuf-2.0-0.dll
+libgdk-win32-2.0-0.dll
+libgio-2.0-0.dll
+libgiomm-2.4-1.dll
+libglib-2.0-0.dll
+libglibmm-2.4-1.dll
+libglibmm_generate_extra_defs-2.4-1.dll
+libgmodule-2.0-0.dll
+libgobject-2.0-0.dll
+libgthread-2.0-0.dll
+libgtkmm-2.4-1.dll
+libgtk-win32-2.0-0.dll
+libharfbuzz-0.dll
+libltc-11.dll
+libFLAC-8.dll
+libogg-0.dll
+libvorbis-0.dll
+libvorbisenc-2.dll
+libffi-6.dll
+libidn-11.dll
+libintl-8.dll
+liblo-7.dll
+libpango-1.0-0.dll
+libpangocairo-1.0-0.dll
+libpangoft2-1.0-0.dll
+libpangomm-1.4-1.dll
+libpangowin32-1.0-0.dll
+libpixman-1-0.dll
+rubberband-2.dll
+libsamplerate-0.dll
+libsigc-2.0-0.dll
+libsndfile-1.dll
+libssh2-1.dll
+libstdc++-6.dll
+libtag.dll
+libxml2-2.dll
+vamp-hostsdk-3.dll
+vamp-sdk-2.dll
+zlib1.dll
+lilv-0.dll
+sratom-0-0.dll
+serd-0-0.dll
+sord-0-0.dll
+'
+
+FEDORA_19_DLLS='
+libcrypto-10.dll
+iconv.dll
+libpng15-15.dll
+pthreadGC2.dll
+libgnurx-0.dll
+libcppunit-1-12-1.dll
+portaudio-2.dll
+libssl-10.dll
+'
+
+FEDORA_19_WIN32_DLLS='
+libgcc_s_sjlj-1.dll
+'
+
+FEDORA_19_WIN64_DLLS='
+libgcc_s_seh-1.dll
+'
+
+FEDORA_20_DLLS='
+libcrypto-10.dll
+iconv.dll
+libpng16-16.dll
+libwinpthread-1.dll
+libgnurx-0.dll
+libcppunit-1-12-1.dll
+libgcc_s_sjlj-1.dll
+portaudio-2.dll
+libssl-10.dll
+'
+
+MSYS2_DLLS='
+libeay32.dll
+libiconv-2.dll
+libcppunit-1-13-0.dll
+libgcc_s_dw2-1.dll
+libportaudio-2.dll
+libpng16-16.dll
+libpython2.7.dll
+librtmp-1.dll
+libwinpthread-1.dll
+'
+
+function define_package_env
+{
+	PKG_NAME='gtk+-2.0'
+	PKG_VERSION="2.24"
+	PKG_INSTALL_DIR="$PKG_NAME"
+}
+
+function prep
+{
+	echo "$PKG_NAME prep"
+}
+
+function build
+{
+	echo "$PKG_NAME build"
+}
+
+function install
+{
+	echo "$PKG_NAME install"
+
+	if [ $BUILD_HOST == 'Fedora-19' ]; then
+		echo "Using Fedora 19 DLL list"
+		if [ "$ARCH" == "x86_64" ]; then
+			DLLS=$COMMON_DLLS$FEDORA_19_DLLS$FEDORA_19_WIN64_DLLS
+		else
+			DLLS=$COMMON_DLLS$FEDORA_19_DLLS$FEDORA_19_WIN32_DLLS
+		fi
+	elif [ $BUILD_HOST == 'Fedora-20' ]; then
+		DLLS=$COMMON_DLLS$FEDORA_20_DLLS
+		echo "Using Fedora 20 DLL list"
+	elif [ $BUILD_HOST == 'Fedora-21' ]; then
+		DLLS=$COMMON_DLLS$FEDORA_21_DLLS
+		echo "Using Fedora 21 DLL list"
+	elif [ $BUILD_HOST == 'MSYS2' ]; then
+		DLLS=$COMMON_DLLS$MSYS2_DLLS
+		echo "Using MSYS2 DLL list"
+	fi
+
+	if [ -z "$DLLS" ]; then
+		echo "ERROR: DLLS variable is not defined..."
+		exit 1
+	fi
+
+	PKG_BIN_DIR=$PKG_INSTALL_DIR/bin
+	PKG_LIB_DIR=$PKG_INSTALL_DIR/lib
+	PKG_ETC_DIR=$PKG_INSTALL_DIR/etc
+	PKG_SHARE_DIR=$PKG_INSTALL_DIR/share
+
+	mkdir -p $PKG_BIN_DIR || exit 1
+	mkdir -p $PKG_LIB_DIR || exit 1
+	mkdir -p $PKG_ETC_DIR || exit 1
+	mkdir -p $PKG_SHARE_DIR || exit 1
+
+	echo "Copying config files to $PKG_INSTALL_DIR ..."
+	cp -RL $MINGW_ROOT/etc/fonts $PKG_ETC_DIR
+	cp -RL $MINGW_ROOT/etc/gtk-2.0 $PKG_ETC_DIR
+	cp -RL $MINGW_ROOT/etc/pango $PKG_ETC_DIR
+
+	cp -R $MINGW_ROOT/lib/gtk-2.0 $PKG_INSTALL_DIR/lib
+
+	# Copy any gdk-pixbuf2 modules if they exist
+	if [ -d $MINGW_ROOT/lib/gdk-pixbuf-2.0 ]; then
+		echo "Copying gdk-pixbuf2 modules to $PKG_LIB_DIR ..."
+		cp -R $MINGW_ROOT/lib/gdk-pixbuf-2.0 $PKG_LIB_DIR
+		cp $MINGW_PKG_DIRECTORY/loaders.cache $PKG_LIB_DIR/gdk-pixbuf-2.0/2.10.0/loaders.cache
+	fi
+
+	# Copy any pango modules if they exist
+	if [ -d $MINGW_ROOT/lib/pango/1.8.0/modules ]; then
+		echo "Copying pango modules to $PKG_LIB_DIR ..."
+		mkdir -p $PKG_LIB_DIR/pango/1.8.0/modules
+		cp -r $MINGW_ROOT/lib/pango/1.8.0/modules/*.dll $PKG_LIB_DIR/pango/1.8.0/modules
+		cp $MINGW_PKG_DIRECTORY/pango.modules $PKG_ETC_DIR/pango
+	fi
+
+	echo "Copying mingw shared libraries to $PKG_BIN_DIR ..."
+
+	for i in $DLLS;
+	do
+		copydll "$i" $PKG_BIN_DIR || exit 1
+	done
+
+	if [ -n $WITH_JACK ]; then
+		echo "Copying JACK server and drivers to $PKG_BIN_DIR ..."
+		cp $MINGW_ROOT/bin/jackd.exe $PKG_BIN_DIR
+		cp -r $MINGW_ROOT/bin/jack $PKG_BIN_DIR
+	fi
+
+	if [ -n $PKG_ENABLE_DEBUG ]; then
+		if [ -n $WITH_JACK ]; then
+			echo "Copying JACK utility programs to $PKG_BIN_DIR ..."
+			cp $MINGW_ROOT/bin/jack_*.exe $PKG_BIN_DIR
+		fi
+	fi
+
+	if [ -n $WITH_LV2 ]; then
+		echo "Copying LV2 utility programs to $PKG_BIN_DIR ..."
+		cp $MINGW_ROOT/bin/lilv-bench.exe $PKG_BIN_DIR
+		cp $MINGW_ROOT/bin/lv2info.exe $PKG_BIN_DIR
+		cp $MINGW_ROOT/bin/lv2ls.exe $PKG_BIN_DIR
+	fi
+
+	#echo "Copying any debug files to $PKG_INSTALL_DIR ..."
+	#cp $MINGW_ROOT/bin/*.debug $PKG_INSTALL_DIR
+
+	echo "Copying gdb and config files to $PKG_INSTALL_DIR ..."
+	cp $MINGW_ROOT/bin/gdb.exe $PKG_BIN_DIR
+
+	echo "Copying Gtk demo to $PKG_BIN_DIR ..."
+	cp $MINGW_ROOT/bin/gtk-demo.exe $PKG_BIN_DIR
+}
+
+function package
+{
+	echo "$PKG_NAME package"
+}
