@@ -1,4 +1,4 @@
-[ Purpose ]
+# Purpose
 
 The purpose of this project is to be able to build packages of software
 compiled for windows with gcc/mingw-w64. Specifically Ardour and related
@@ -18,7 +18,7 @@ applications and libraries into the system-wide(MINGW_ROOT) location as
 well as packaging them into a specified directory for
 testing/distribution.
 
-[ Approach ]
+# Approach
 
 The approach I've taken with the windows packaging which is to install
 the app into a prefix and then copy all the library deps and config files
@@ -31,7 +31,7 @@ also install application into PREFIX.
 Another option would be to install binary packages built and maintained
 externally(fedora, msys2 etc) using PREFIX as root.
 
-[ Usage ]
+# Usage
 
 build a local checkout of ardour in debug config
 
