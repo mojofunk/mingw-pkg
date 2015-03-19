@@ -71,7 +71,6 @@ libpng15-15.dll
 pthreadGC2.dll
 libgnurx-0.dll
 libcppunit-1-12-1.dll
-portaudio-2.dll
 libssl-10.dll
 '
 
@@ -82,7 +81,6 @@ libpng16-16.dll
 libwinpthread-1.dll
 libgnurx-0.dll
 libcppunit-1-12-1.dll
-portaudio-2.dll
 libssl-10.dll
 '
 
@@ -90,7 +88,6 @@ MSYS2_DLLS='
 libeay32.dll
 libiconv-2.dll
 libcppunit-1-13-0.dll
-libportaudio-2.dll
 libpng16-16.dll
 libpython2.7.dll
 librtmp-1.dll

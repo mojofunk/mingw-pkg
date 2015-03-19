@@ -1,0 +1,62 @@
+#!/bin/bash
+
+function define_package_env
+{
+	PKG_NAME='portaudio-devel'
+	PKG_VERSION="2.0"
+	PKG_DEPS="gcc"
+
+	if [ -z "$PORTAUDIO_SRC_DIR" ]; then
+		echo "You must define PORTAUDIO_SRC_DIR in environment to build this package"
+		exit 1
+	fi
+
+	cd "$PORTAUDIO_SRC_DIR" || exit 1
+
+	if [ -z "$PORTAUDIO_BRANCH" ]; then
+		PORTAUDIO_BRANCH="waf"
+	fi
+
+	git checkout $PORTAUDIO_BRANCH || exit 1
+
+	cd - || exit 1
+
+	# Figure out the Build Type
+	if [ -n "$MINGW_PKG_ENABLE_DEBUG" ]; then
+		PKG_INSTALL_DIR="$PKG_NAME-${PKG_VERSION}-$ARCH-dbg"
+	else
+		PKG_INSTALL_DIR="$PKG_NAME-${PKG_VERSION}-$ARCH"
+	fi
+}
+
+function prep
+{
+	cd "$PORTAUDIO_SRC_DIR" || exit 1
+	git checkout $PORTAUDIO_BRANCH || exit 1
+}
+
+function build
+{
+	COMMON_OPTIONS=${COMMON_OPTIONS:="--platform=win32 --enable-static"}
+	PATH_OPTIONS=${PATH_OPTIONS:="--prefix=/"}
+	TEST_OPTIONS=${TEST_OPTIONS:="--with-tests"}
+	EXAMPLE_OPTIONS=${EXAMPLE_OPTIONS:="--with-examples"}
+	HOSTAPI_OPTIONS=${HOSTAPI_OPTIONS:="--with-wmme --with-directx --with-wdmks"}
+
+	$PYTHON ./waf configure $COMMON_OPTIONS $PATH_OPTIONS \
+							$TEST_OPTIONS $EXAMPLE_OPTIONS \
+	                        $HOSTAPI_OPTIONS || exit 1
+	$PYTHON ./waf "$@" || exit 1
+}
+
+function install
+{
+	echo "$PKG_NAME install"
+
+	$PYTHON ./waf --destdir=$PKG_INSTALL_DIR install || exit 1
+}
+
+function package
+{
+	echo "$PKG_NAME package"
+}
