@@ -1,17 +1,22 @@
-The purpose of this project is to be able to build packages of software
-compiled for windows with gcc/mingw-w64.
+[ Purpose ]
 
-This is really a meta packaging system at this point that relies on some
-mingw packages being installed on the build host.
+The purpose of this project is to be able to build packages of software
+compiled for windows with gcc/mingw-w64. Specifically Ardour and related
+packages. The only reason it is in a separate repository and not in the
+Ardour repository is that I may need the functionality for other software.
+
+This is really a meta packaging system at this point that relies on the
+mingw packages being installed on the build host. The "packages" are
+just scripts that copy the necessary runtime bits off the build host and
+install them into a specified directory.
 
 There are only two platforms "supported" for building packages, Fedora
 and MSYS2 but support for other platforms can be added if necessary.
 
-This tool needs to support building and installing applications and
-libraries into the system-wide(MINGW_ROOT) location as well as 
-packaging them into a specified directory for testing/distribution.
-
-The system will initially be implemented with shell script/s
+This tool should(but doesn't currently) support building and installing
+applications and libraries into the system-wide(MINGW_ROOT) location as
+well as packaging them into a specified directory for
+testing/distribution.
 
 [ Approach ]
 
@@ -28,10 +33,10 @@ externally(fedora, msys2 etc) using PREFIX as root.
 
 [ Usage ]
 
-build project ardour on fedora-19 in debug config 
+build a local checkout of ardour in debug config
 
-./mingw-pkg.sh -d build ardour
+ARDOUR_SRC_DIR=../ardour ARDOUR_BRANCH=master ./mingw-pkg.sh -d -v install ardour
 
 or to install
 
-./mingw-pkg.sh -d install ardour
+ARDOUR_SRC_DIR=../ardour ARDOUR_BRANCH=master ./mingw-pkg.sh -d -v install ardour
