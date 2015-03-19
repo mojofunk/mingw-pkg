@@ -74,7 +74,6 @@ function print_usage ()
 	echo "    install"
 	echo "    package"
 	echo "    clean"
-
 }
 
 function check_pkg_env ()
@@ -168,8 +167,6 @@ do
 	echo "Building package dependency $pkg"
 	$MINGW_PKG_SCRIPT_PATH/mingw-pkg.sh $VERBOSE_FLAGS $DEBUG_FLAGS -i $PKG_INSTALL_DIR $MINGW_PKG_COMMAND $pkg || exit 1
 done
-
-echo `pwd`
 
 case $MINGW_PKG_COMMAND in
 	prep)
