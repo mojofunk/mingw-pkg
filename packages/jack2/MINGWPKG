@@ -1,0 +1,44 @@
+#!/bin/bash
+
+function define_package_env
+{
+	PKG_NAME='jack2'
+	PKG_VERSION="1.9.10"
+	PKG_DEPS="gcc portaudio libgnurx"
+	PKG_INSTALL_DIR="$PKG_NAME-${PKG_VERSION}-$ARCH"
+}
+
+function prep
+{
+	echo "$PKG_NAME prep"
+}
+
+function build
+{
+	echo "$PKG_NAME build"
+}
+
+function install
+{
+	PKG_BIN_DIR=$PKG_INSTALL_DIR/bin
+
+	copydll jack-0.dll $PKG_BIN_DIR || exit 1
+	copydll jackserver-0.dll $PKG_BIN_DIR || exit 1
+
+	if [ -n $WITH_JACK ]; then
+		echo "Copying JACK server and drivers to $PKG_BIN_DIR ..."
+		cp $MINGW_ROOT/bin/jackd.exe $PKG_BIN_DIR
+		cp -r $MINGW_ROOT/bin/jack $PKG_BIN_DIR
+	fi
+	if [ -n $MINGW_PKG_ENABLE_DEBUG ]; then
+		if [ -n $WITH_JACK ]; then
+			echo "Copying JACK utility programs to $PKG_BIN_DIR ..."
+			cp $MINGW_ROOT/bin/jack_*.exe $PKG_BIN_DIR
+		fi
+	fi
+}
+
+function package
+{
+	echo "$PKG_NAME package"
+}

@@ -1,19 +1,27 @@
 #!/bin/bash
 
+COMMON_DLLS='
+libstdc++-6.dll
+'
+
 FEDORA_19_WIN32_DLLS='
 libgcc_s_sjlj-1.dll
+pthreadGC2.dll
 '
 
 FEDORA_19_WIN64_DLLS='
 libgcc_s_seh-1.dll
+pthreadGC2.dll
 '
 
 FEDORA_20_DLLS='
 libgcc_s_sjlj-1.dll
+libwinpthread-1.dll
 '
 
 MSYS2_DLLS='
 libgcc_s_dw2-1.dll
+libwinpthread-1.dll
 '
 
 function define_package_env
@@ -59,6 +67,8 @@ function install
 		echo "ERROR: DLLS variable is not defined..."
 		exit 1
 	fi
+
+	DLLS=$COMMON_DLLS$DLLS
 
 	PKG_BIN_DIR=$PKG_INSTALL_DIR/bin
 

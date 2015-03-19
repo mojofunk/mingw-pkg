@@ -1,8 +1,6 @@
 #!/bin/bash
 
 COMMON_DLLS='
-jack-0.dll
-jackserver-0.dll
 libatk-1.0-0.dll
 libatkmm-1.6-1.dll
 libbz2-1.dll
@@ -52,7 +50,6 @@ libsamplerate-0.dll
 libsigc-2.0-0.dll
 libsndfile-1.dll
 libssh2-1.dll
-libstdc++-6.dll
 libtag.dll
 libxml2-2.dll
 vamp-hostsdk-3.dll
@@ -68,8 +65,6 @@ FEDORA_19_DLLS='
 libcrypto-10.dll
 iconv.dll
 libpng15-15.dll
-pthreadGC2.dll
-libgnurx-0.dll
 libcppunit-1-12-1.dll
 libssl-10.dll
 '
@@ -79,7 +74,6 @@ libcrypto-10.dll
 iconv.dll
 libpng16-16.dll
 libwinpthread-1.dll
-libgnurx-0.dll
 libcppunit-1-12-1.dll
 libssl-10.dll
 '
@@ -90,8 +84,6 @@ libiconv-2.dll
 libcppunit-1-13-0.dll
 libpng16-16.dll
 libpython2.7.dll
-librtmp-1.dll
-libwinpthread-1.dll
 '
 
 function define_package_env
@@ -173,19 +165,6 @@ function install
 	do
 		copydll "$i" $PKG_BIN_DIR || exit 1
 	done
-
-	if [ -n $WITH_JACK ]; then
-		echo "Copying JACK server and drivers to $PKG_BIN_DIR ..."
-		cp $MINGW_ROOT/bin/jackd.exe $PKG_BIN_DIR
-		cp -r $MINGW_ROOT/bin/jack $PKG_BIN_DIR
-	fi
-
-	if [ -n $PKG_ENABLE_DEBUG ]; then
-		if [ -n $WITH_JACK ]; then
-			echo "Copying JACK utility programs to $PKG_BIN_DIR ..."
-			cp $MINGW_ROOT/bin/jack_*.exe $PKG_BIN_DIR
-		fi
-	fi
 
 	if [ -n $WITH_LV2 ]; then
 		echo "Copying LV2 utility programs to $PKG_BIN_DIR ..."

@@ -24,7 +24,7 @@ function define_version_env
 function define_package_env
 {
 	PKG_NAME='ardour'
-	PKG_DEPS="gtk+-2.0 portaudio"
+	PKG_DEPS="gtk+-2.0 portaudio jack2"
 
 	if [ -z "$ARDOUR_SRC_DIR" ]; then
 		echo "You must define ARDOUR_SRC_DIR in environment to build this package"

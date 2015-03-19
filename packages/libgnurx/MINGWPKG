@@ -1,0 +1,35 @@
+#!/bin/bash
+
+function define_package_env
+{
+	PKG_NAME='libgnurx'
+	PKG_VERSION="2.5.1"
+	PKG_DEPS="gcc"
+	PKG_INSTALL_DIR="$PKG_NAME-${PKG_VERSION}-$ARCH"
+}
+
+function prep
+{
+	echo "$PKG_NAME prep"
+}
+
+function build
+{
+	echo "$PKG_NAME build"
+}
+
+function install
+{
+	echo "$PKG_NAME install"
+	if [ $BUILD_HOST == 'MSYS2' ]; then
+		DLL="librtmp-1.dll"
+	else
+		DLL="libgnurx-0.dll"
+	fi
+	copydll $DLL $PKG_INSTALL_DIR/bin
+}
+
+function package
+{
+	echo "$PKG_NAME package"
+}
