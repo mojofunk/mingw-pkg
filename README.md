@@ -1,6 +1,15 @@
-The purpose of this project is to be able to build installable packages
-windows for Ardour, Alta and other software and share the packaging 
-infrastructure.
+The purpose of this project is to be able to build packages of software
+compiled for windows with gcc/mingw-w64.
+
+This is really a meta packaging system at this point that relies on some
+mingw packages being installed on the build host.
+
+There are only two platforms "supported" for building packages, Fedora
+and MSYS2 but support for other platforms can be added if necessary.
+
+This tool needs to support building and installing applications and
+libraries into the system-wide(MINGW_ROOT) location as well as 
+packaging them into a specified directory for testing/distribution.
 
 The system will initially be implemented with shell script/s
 
@@ -14,9 +23,8 @@ A possibly more consistent approach would be to build/configure all the
 dependencies with PREFIX and install into bundle/package path and then
 also install application into PREFIX.
 
-Another option is to rely on binary packages built and maintained
-externally(fedora, msys2 etc) and then install these packages using PREFIX
-as root.
+Another option would be to install binary packages built and maintained
+externally(fedora, msys2 etc) using PREFIX as root.
 
 [ Usage ]
 
