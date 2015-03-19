@@ -1,0 +1,144 @@
+#!/bin/bash
+
+function define_version_env
+{
+	GIT_DESCRIBE=`git describe HEAD`
+
+	GIT_REV_REGEXP='([0-9][0-9]*)\.([0-9][0-9]*)\-?(rc[0-9]*)?-?([0-9][0-9]*)?(-g([a-f0-9]+))?'
+
+	MAJOR_VERSION=`echo "$GIT_DESCRIBE" | sed -r -e "s/$GIT_REV_REGEXP/\1/"`
+	MINOR_VERSION=`echo "$GIT_DESCRIBE" | sed -r -e "s/$GIT_REV_REGEXP/\2/"`
+	RC=`echo "$GIT_DESCRIBE" | sed -r -e "s/$GIT_REV_REGEXP/\3/"`
+	REVISION=`echo "$GIT_DESCRIBE" | sed -r -e "s/$GIT_REV_REGEXP/\4/"`
+	COMMIT=`echo "$GIT_DESCRIBE" | sed -r -e "s/$GIT_REV_REGEXP/\6/"`
+
+	if [ "x$RC" != "x" ] ; then
+    	REVCOUNT=$RC${REVISION:+.$REVISION}
+	elif [ "x$REVISION" != "x" ] ; then
+    	REVCOUNT=$REVISION
+	fi
+
+	VERSION=${MAJOR_VERSION}.${MINOR_VERSION}${REVCOUNT:+.$REVCOUNT}
+}
+
+function define_package_env
+{
+	PKG_NAME='alta'
+	PKG_DEPS="gtk+-2.0"
+
+	if [ -z "$ALTA_SRC_DIR" ]; then
+		echo "You must define ALTA_SRC_DIR in environment to build this package"
+		exit 1
+	fi
+
+	cd "$ALTA_SRC_DIR" || exit 1 
+
+	if [ -z "$ALTA_BRANCH" ]; then
+		ALTA_BRANCH="master"
+	fi
+
+	git checkout $ALTA_BRANCH || exit 1	
+
+	#not relevant yet
+	#define_version_env
+
+	PKG_VERSION="0.1"
+
+	cd - || exit 1
+
+	# Figure out the Build Type
+	if [ -n "$MINGW_PKG_ENABLE_DEBUG" ]; then
+		PKG_INSTALL_DIR="$PKG_NAME-${PKG_VERSION}-$ARCH-dbg"
+	else
+		PKG_INSTALL_DIR="$PRG_NAME-${PKG_VERSION}-$ARCH"
+	fi
+}
+
+function prep
+{
+	cd "$ALTA_SRC_DIR" || exit 1 
+
+	git checkout $ALTA_BRANCH || exit 1	
+}
+
+function build
+{
+	COMMON_OPTIONS=${COMMON_OPTIONS:="--with-target-platform=mingw"}
+	PATH_OPTIONS=${PATH_OPTIONS:="--prefix=/"}
+	TEST_OPTIONS=${TEST_OPTIONS:="--with-tests"}
+	#BACKEND_OPTIONS=${BACKEND_OPTIONS:="--with-backends=dummy,jack,portaudio"}
+
+	if [ -z "$MINGW_PKG_ENABLE_DEBUG" ]; then
+		BUILD_FLAGS="--optimize"
+	fi
+
+	$PYTHON ./waf configure $COMMON_OPTIONS $PATH_OPTIONS \
+							$TEST_OPTIONS $BACKEND_OPTIONS \
+							$BUILD_FLAGS || exit 1
+	$PYTHON ./waf "$@" || exit 1
+}
+
+function install
+{
+	BUILD_DIR=build
+	BUILD_CACHE_FILE=$BUILD_DIR/c4che/_cache.py
+
+	STATEFILE_SUFFIX=ardour # see filename_extensions.cc
+
+	if grep -q "BUILD_TESTS = True" $BUILD_CACHE_FILE; then
+		WITH_TESTS=1
+	fi
+
+	PKG_BIN_DIR=$PKG_INSTALL_DIR/bin
+	PKG_LIB_DIR=$PKG_INSTALL_DIR/lib
+	PKG_ETC_DIR=$PKG_INSTALL_DIR/etc
+	PKG_SHARE_DIR=$PKG_INSTALL_DIR/share
+
+	DATA_DIRNAME=${PRODUCT_NAME}${MAJOR_VERSION}
+	DATA_DIR="$PKG_SHARE_DIR/${DATA_DIRNAME}"
+
+	$PYTHON ./waf --destdir=$PKG_INSTALL_DIR install || exit 1
+
+	echo "Moving Alta dll's and executable to $PKG_BIN_DIR ..."
+
+	mv "$PKG_LIB_DIR/$DATA_DIRNAME"/*.dll "$PKG_BIN_DIR" || exit 1
+	mv "$PKG_LIB_DIR/$DATA_DIRNAME"/*.exe $PKG_BIN_DIR || exit 1
+
+	echo "Deleting import libs ..."
+
+	rm "$PKG_LIB_DIR"/*dll.a
+
+	#cp $TOOLS_DIR/README $PKG_INSTALL_DIR
+
+	if [ -n "$MINGW_PKG_ENABLE_DEBUG" ]; then
+		PKG_SRC_DIR=$PKG_INSTALL_DIR/src
+		echo "Copying source files to $PKG_SRC_DIR ..."
+		cp -r src $PKG_SRC_DIR
+		#. $MINGW_PKG_DIRECTORY/make-debug-script.sh
+	else
+		echo "Optimized build Stripping executable ..."
+		find $PKG_INSTALL_DIR -type f -name "*.exe*" | xargs $STRIP
+		echo "Stripping libraries ..."
+		find $PKG_INSTALL_DIR -type f -name "*.dll*" | xargs $STRIP
+	fi
+}
+
+function package ()
+{
+	echo "Creating tarball from $PKG_INSTALL_DIR ..."
+	#cd $MINGW_PKG_BUILD_DIR
+	tar -cvJf $PKG_INSTALL_DIR.tar.xz $PKG_INSTALL_DIR
+}
+
+function clean ()
+{
+	echo "Alta clean"
+	if [ -d "$BUILD_DIR" ]; then
+		echo "Removing $BUILD_DIR"
+		rm -rf "$BUILD_DIR" || exit 1
+	fi
+	if [ -d "$PKG_INSTALL_DIR" ]; then
+		echo "Removing $PKG_INSTALL_DIR"
+		rm -rf "$PKG_INSTALL_DIR" || exit 1
+	fi
+}
