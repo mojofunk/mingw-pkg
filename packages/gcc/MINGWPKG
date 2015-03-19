@@ -1,0 +1,78 @@
+#!/bin/bash
+
+FEDORA_19_WIN32_DLLS='
+libgcc_s_sjlj-1.dll
+'
+
+FEDORA_19_WIN64_DLLS='
+libgcc_s_seh-1.dll
+'
+
+FEDORA_20_DLLS='
+libgcc_s_sjlj-1.dll
+'
+
+MSYS2_DLLS='
+libgcc_s_dw2-1.dll
+'
+
+function define_package_env
+{
+	PKG_NAME='gcc'
+	PKG_VERSION="1"
+	PKG_INSTALL_DIR="$PKG_NAME-$ARCH"
+}
+
+function prep
+{
+	echo "$PKG_NAME prep"
+}
+
+function build
+{
+	echo "$PKG_NAME build"
+}
+
+function install
+{
+	echo "$PKG_NAME install"
+
+	if [ $BUILD_HOST == 'Fedora-19' ]; then
+		echo "Using Fedora 19 DLL list"
+		if [ "$ARCH" == "x86_64" ]; then
+			DLLS=$FEDORA_19_WIN64_DLLS
+		else
+			DLLS=$FEDORA_19_WIN32_DLLS
+		fi
+	elif [ $BUILD_HOST == 'Fedora-20' ]; then
+		DLLS=$FEDORA_20_DLLS
+		echo "Using Fedora 20 DLL list"
+	elif [ $BUILD_HOST == 'Fedora-21' ]; then
+		DLLS=$FEDORA_21_DLLS
+		echo "Using Fedora 21 DLL list"
+	elif [ $BUILD_HOST == 'MSYS2' ]; then
+		DLLS=$MSYS2_DLLS
+		echo "Using MSYS2 DLL list"
+	fi
+
+	if [ -z "$DLLS" ]; then
+		echo "ERROR: DLLS variable is not defined..."
+		exit 1
+	fi
+
+	PKG_BIN_DIR=$PKG_INSTALL_DIR/bin
+
+	mkdir -p $PKG_BIN_DIR || exit 1
+
+	echo "Copying mingw gcc shared libraries to $PKG_BIN_DIR ..."
+
+	for i in $DLLS;
+	do
+		copydll "$i" $PKG_BIN_DIR || exit 1
+	done
+}
+
+function package
+{
+	echo "$PKG_NAME package"
+}
