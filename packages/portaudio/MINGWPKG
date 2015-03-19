@@ -37,7 +37,7 @@ function prep
 
 function build
 {
-	COMMON_OPTIONS=${COMMON_OPTIONS:="--platform=win32"}
+	COMMON_OPTIONS=${COMMON_OPTIONS:="--platform=win32 --enable-static"}
 	PATH_OPTIONS=${PATH_OPTIONS:="--prefix=/"}
 	TEST_OPTIONS=${TEST_OPTIONS:="--with-tests"}
 	EXAMPLE_OPTIONS=${EXAMPLE_OPTIONS:="--with-examples"}
