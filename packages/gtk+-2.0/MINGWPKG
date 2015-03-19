@@ -118,11 +118,7 @@ function install
 
 	if [ $BUILD_HOST == 'Fedora-19' ]; then
 		echo "Using Fedora 19 DLL list"
-		if [ "$ARCH" == "x86_64" ]; then
-			DLLS=$COMMON_DLLS$FEDORA_19_DLLS
-		else
-			DLLS=$COMMON_DLLS$FEDORA_19_DLLS
-		fi
+		DLLS=$COMMON_DLLS$FEDORA_19_DLLS
 	elif [ $BUILD_HOST == 'Fedora-20' ]; then
 		DLLS=$COMMON_DLLS$FEDORA_20_DLLS
 		echo "Using Fedora 20 DLL list"
