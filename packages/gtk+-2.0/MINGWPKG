@@ -134,11 +134,6 @@ function install
 		exit 1
 	fi
 
-	PKG_BIN_DIR=$PKG_INSTALL_DIR/bin
-	PKG_LIB_DIR=$PKG_INSTALL_DIR/lib
-	PKG_ETC_DIR=$PKG_INSTALL_DIR/etc
-	PKG_SHARE_DIR=$PKG_INSTALL_DIR/share
-
 	mkdir -p $PKG_BIN_DIR || exit 1
 	mkdir -p $PKG_LIB_DIR || exit 1
 	mkdir -p $PKG_ETC_DIR || exit 1

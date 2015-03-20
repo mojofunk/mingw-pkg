@@ -21,13 +21,14 @@ function build
 function install
 {
 	echo "$PKG_NAME install"
-	PKG_BIN_DIR=$PKG_INSTALL_DIR/bin
 	# not packaging them all for now
 	DLLS='
 	libboost_system.dll
 	libboost_filesystem.dll
 	libboost_unit_test_framework.dll
 	'
+
+	mkdir -p $PKG_BIN_DIR || exit
 
 	for i in $DLLS;
 	do

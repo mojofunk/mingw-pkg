@@ -20,7 +20,7 @@ function build
 
 function install
 {
-	PKG_BIN_DIR=$PKG_INSTALL_DIR/bin
+	mkdir -p $PKG_BIN_DIR || exit 1
 
 	copydll jack-0.dll $PKG_BIN_DIR || exit 1
 	copydll jackserver-0.dll $PKG_BIN_DIR || exit 1

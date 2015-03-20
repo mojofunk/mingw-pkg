@@ -53,6 +53,14 @@ function export_tools ()
 	export PYTHON=${PYTHON:=python}
 }
 
+function define_standard_dirs
+{
+	PKG_BIN_DIR=$PKG_INSTALL_DIR/bin
+	PKG_LIB_DIR=$PKG_INSTALL_DIR/lib
+	PKG_ETC_DIR=$PKG_INSTALL_DIR/etc
+	PKG_SHARE_DIR=$PKG_INSTALL_DIR/share
+}
+
 # a package could override this if necessary
 function copydll () {
 	if [ -f $MINGW_ROOT/bin/$1 ]; then
@@ -153,6 +161,8 @@ if [ -n "${MINGW_PKG_OVERRIDE_INSTALL_DIR}" ]; then
 	PKG_INSTALL_DIR="$MINGW_PKG_OVERRIDE_INSTALL_DIR"
 	echo "Using install dir $PKG_INSTALL_DIR"
 fi
+
+define_standard_dirs
 
 if [ -n "${MINGW_PKG_VERBOSE}" ]; then
 	VERBOSE_FLAGS=-v

@@ -26,7 +26,8 @@ function install
 	else
 		DLL="portaudio-2.dll"
 	fi
-	copydll $DLL $PKG_INSTALL_DIR/bin
+	mkdir -p $PKG_BIN_DIR || exit 1
+	copydll $DLL $PKG_BIN_DIR
 }
 
 function package

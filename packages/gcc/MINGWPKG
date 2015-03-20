@@ -55,8 +55,6 @@ function install
 
 	DLLS=$COMMON_DLLS$DLLS
 
-	PKG_BIN_DIR=$PKG_INSTALL_DIR/bin
-
 	mkdir -p $PKG_BIN_DIR || exit 1
 
 	echo "Copying $PKG_NAME shared libraries to $PKG_BIN_DIR ..."

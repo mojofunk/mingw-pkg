@@ -21,7 +21,7 @@ function build
 function install
 {
 	echo "$PKG_NAME install"
-	PKG_BIN_DIR=$PKG_INSTALL_DIR/bin
+	mkdir -p $PKG_BIN_DIR || exit 1
 	TESTS=`ls "$MINGW_ROOT"/bin/patest*.exe`
 	for test in $TESTS;
 	do
