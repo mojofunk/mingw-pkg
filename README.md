@@ -33,10 +33,21 @@ externally(fedora, msys2 etc) using PREFIX as root.
 
 # Usage
 
-build a local checkout of ardour in debug config
+Output from ./mingw-pkg.sh -h
+usage: mingw-pkg [-d] [-h] <command> <package>
 
-ARDOUR_SRC_DIR=../ardour ARDOUR_BRANCH=master ./mingw-pkg.sh -d -v install ardour
+The commands are:
+prep
+build
+install
+package
+clean
 
-or to install
+build a local checkout of ardour in debug config:
+
+ARDOUR_SRC_DIR=../ardour ARDOUR_BRANCH=master ./mingw-pkg.sh -d -v build ardour
+
+or to install to a directory determined in packages/ardour/MINGWPKG based on
+ardour version:
 
 ARDOUR_SRC_DIR=../ardour ARDOUR_BRANCH=master ./mingw-pkg.sh -d -v install ardour
