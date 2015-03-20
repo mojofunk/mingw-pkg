@@ -1,0 +1,41 @@
+#!/bin/bash
+
+function define_package_env
+{
+	PKG_NAME='boost'
+	PKG_VERSION="1.55.0"
+	PKG_DEPS="gcc"
+	PKG_INSTALL_DIR="$PKG_NAME-${PKG_VERSION}-$ARCH"
+}
+
+function prep
+{
+	echo "$PKG_NAME prep"
+}
+
+function build
+{
+	echo "$PKG_NAME build"
+}
+
+function install
+{
+	echo "$PKG_NAME install"
+	PKG_BIN_DIR=$PKG_INSTALL_DIR/bin
+	# not packaging them all for now
+	DLLS='
+	libboost_system.dll
+	libboost_filesystem.dll
+	libboost_unit_test_framework.dll
+	'
+
+	for i in $DLLS;
+	do
+		copydll "$i" $PKG_BIN_DIR || exit 1
+	done
+}
+
+function package
+{
+	echo "$PKG_NAME package"
+}

@@ -73,7 +73,14 @@ FEDORA_20_DLLS='
 libcrypto-10.dll
 iconv.dll
 libpng16-16.dll
-libwinpthread-1.dll
+libcppunit-1-12-1.dll
+libssl-10.dll
+'
+
+FEDORA_21_DLLS='
+libcrypto-10.dll
+iconv.dll
+libpng16-16.dll
 libcppunit-1-12-1.dll
 libssl-10.dll
 '
