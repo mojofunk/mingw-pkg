@@ -172,10 +172,20 @@ if [ -n "${MINGW_PKG_ENABLE_DEBUG}" ]; then
 	DEBUG_FLAGS=-d
 fi
 
+MINGW_PKG_CACHE_DIR="$PKG_INSTALL_DIR/mingw-pkg"
+
+mkdir -p "$MINGW_PKG_CACHE_DIR"
+
 for pkg in $PKG_DEPS
 do
-	echo "Building package dependency $pkg"
-	$MINGW_PKG_SCRIPT_PATH/mingw-pkg.sh $VERBOSE_FLAGS $DEBUG_FLAGS -i $PKG_INSTALL_DIR $MINGW_PKG_COMMAND $pkg || exit 1
+	if [ ! -e "$MINGW_PKG_CACHE_DIR/$pkg" ]; then
+		echo "Building package dependency $pkg"
+		$MINGW_PKG_SCRIPT_PATH/mingw-pkg.sh $VERBOSE_FLAGS $DEBUG_FLAGS -i $PKG_INSTALL_DIR $MINGW_PKG_COMMAND $pkg || exit 1
+		touch "$MINGW_PKG_CACHE_DIR/$pkg"
+	else
+		echo "Package dependency $pkg already installed"
+	fi
+
 done
 
 case $MINGW_PKG_COMMAND in
