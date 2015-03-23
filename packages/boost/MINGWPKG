@@ -23,9 +23,9 @@ function install
 	echo "$PKG_NAME install"
 	# not packaging them all for now
 	DLLS='
-	libboost_system.dll
-	libboost_filesystem.dll
-	libboost_unit_test_framework.dll
+	libboost_system-mt.dll
+	libboost_filesystem-mt.dll
+	libboost_unit_test_framework-mt.dll
 	'
 
 	mkdir -p $PKG_BIN_DIR || exit
