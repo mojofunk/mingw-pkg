@@ -95,9 +95,13 @@ function install
 
 	$PYTHON ./waf --destdir=$PKG_INSTALL_DIR install || exit 1
 
-	echo "Deleting import libs ..."
+	echo "Deleting import libs..."
 
 	rm "$PKG_LIB_DIR"/"$PROGRAM_DIRNAME"/*dll.a
+
+	echo "Copying application data..."
+
+	cp -r data "$DATA_DIR"
 
 	if [ -n "$MINGW_PKG_ENABLE_DEBUG" ]; then
 		PKG_SRC_DIR=$PKG_INSTALL_DIR/src
