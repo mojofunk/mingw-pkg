@@ -33,11 +33,9 @@ function define_package_env
 
 	cd "$ALTA_SRC_DIR" || exit 1 
 
-	if [ -z "$ALTA_BRANCH" ]; then
-		ALTA_BRANCH="master"
+	if [ -n "$ALTA_BRANCH" ]; then
+		git checkout $ALTA_BRANCH || exit 1
 	fi
-
-	git checkout $ALTA_BRANCH || exit 1	
 
 	#not relevant yet
 	#define_version_env
@@ -59,7 +57,9 @@ function prep
 {
 	cd "$ALTA_SRC_DIR" || exit 1 
 
-	git checkout $ALTA_BRANCH || exit 1	
+	if [ -n "$ALTA_BRANCH" ]; then
+		git checkout $ALTA_BRANCH || exit 1
+	fi
 }
 
 function build
