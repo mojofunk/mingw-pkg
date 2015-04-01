@@ -66,7 +66,7 @@ function build
 {
 	COMMON_OPTIONS=${COMMON_OPTIONS:="--with-target-platform=windows --enable-amalgamation"}
 	PATH_OPTIONS=${PATH_OPTIONS:="--prefix=/"}
-	TEST_OPTIONS=${TEST_OPTIONS:="--with-tests"}
+	TEST_OPTIONS=${TEST_OPTIONS:="--with-single-tests"}
 	#BACKEND_OPTIONS=${BACKEND_OPTIONS:="--with-backends=dummy,jack,portaudio"}
 
 	if [ -z "$MINGW_PKG_ENABLE_DEBUG" ]; then
