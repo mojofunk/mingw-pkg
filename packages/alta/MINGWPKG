@@ -24,7 +24,7 @@ function define_version_env
 function define_package_env
 {
 	PKG_NAME='alta'
-	PKG_DEPS="gtk+-2.0 boost"
+	PKG_DEPS="gtk+-2.0 boost portaudio"
 
 	if [ -z "$ALTA_SRC_DIR" ]; then
 		echo "You must define ALTA_SRC_DIR in environment to build this package"
