@@ -33,11 +33,9 @@ function define_package_env
 
 	cd "$ARDOUR_SRC_DIR" || exit 1 
 
-	if [ -z "$ARDOUR_BRANCH" ]; then
-		ARDOUR_BRANCH="master"
+	if [ -n "$ARDOUR_BRANCH" ]; then
+		git checkout $ARDOUR_BRANCH || exit 1
 	fi
-
-	git checkout $ARDOUR_BRANCH || exit 1	
 	
 	define_version_env
 
@@ -65,7 +63,9 @@ function prep
 {
 	cd "$ARDOUR_SRC_DIR" || exit 1 
 
-	git checkout $ARDOUR_BRANCH || exit 1	
+	if [ -n "$ARDOUR_BRANCH" ]; then
+		git checkout $ARDOUR_BRANCH || exit 1
+	fi
 }
 
 function build
