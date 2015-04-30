@@ -55,8 +55,3 @@ function install
 
 	$PYTHON ./waf --destdir=$PKG_INSTALL_DIR install || exit 1
 }
-
-function package
-{
-	echo "$PKG_NAME package"
-}

@@ -8,19 +8,8 @@ function define_package_env
 	PKG_INSTALL_DIR="$PKG_NAME-${PKG_VERSION}-$ARCH"
 }
 
-function prep
-{
-	echo "$PKG_NAME prep"
-}
-
-function build
-{
-	echo "$PKG_NAME build"
-}
-
 function install
 {
-	echo "$PKG_NAME install"
 	if [ $BUILD_HOST == 'MSYS2' ]; then
 		DLL="libportaudio-2.dll"
 	else
@@ -28,9 +17,4 @@ function install
 	fi
 	mkdir -p $PKG_BIN_DIR || exit 1
 	copydll $DLL $PKG_BIN_DIR
-}
-
-function package
-{
-	echo "$PKG_NAME package"
 }

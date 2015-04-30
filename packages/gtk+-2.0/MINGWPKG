@@ -100,16 +100,6 @@ function define_package_env
 	PKG_DEPS="gcc"
 }
 
-function prep
-{
-	echo "$PKG_NAME prep"
-}
-
-function build
-{
-	echo "$PKG_NAME build"
-}
-
 function install
 {
 	echo "$PKG_NAME install"
@@ -182,9 +172,4 @@ function install
 
 	echo "Copying Gtk demo to $PKG_BIN_DIR ..."
 	cp $MINGW_ROOT/bin/gtk-demo.exe $PKG_BIN_DIR
-}
-
-function package
-{
-	echo "$PKG_NAME package"
 }

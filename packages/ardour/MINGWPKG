@@ -165,13 +165,6 @@ libs/audiographer
 	fi
 }
 
-function package ()
-{
-	echo "Creating tarball from $PKG_INSTALL_DIR ..."
-	#cd $MINGW_PKG_BUILD_DIR
-	tar -cvJf $PKG_INSTALL_DIR.tar.xz $PKG_INSTALL_DIR
-}
-
 function clean ()
 {
 	echo "Ardour clean"

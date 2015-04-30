@@ -8,16 +8,6 @@ function define_package_env
 	PKG_INSTALL_DIR="$PKG_NAME-${PKG_VERSION}-$ARCH"
 }
 
-function prep
-{
-	echo "$PKG_NAME prep"
-}
-
-function build
-{
-	echo "$PKG_NAME build"
-}
-
 function install
 {
 	mkdir -p $PKG_BIN_DIR || exit 1
@@ -36,9 +26,4 @@ function install
 			cp $MINGW_ROOT/bin/jack_*.exe $PKG_BIN_DIR
 		fi
 	fi
-}
-
-function package
-{
-	echo "$PKG_NAME package"
 }

@@ -72,6 +72,43 @@ function copydll () {
 	return 1
 }
 
+function prep ()
+{
+	echo "Package $MINGW_PKG_NAME using default prep"
+}
+
+function build ()
+{
+	echo "Package $MINGW_PKG_NAME using default build"
+}
+
+function install ()
+{
+	echo "Package $MINGW_PKG_NAME using default install"
+}
+
+function package ()
+{
+	echo "Package $MINGW_PKG_NAME using default package"
+	echo "Creating tarball from $PKG_INSTALL_DIR ..."
+	cd $PKG_INSTALL_DIR
+	echo "pwd: "
+	pwd
+	# This won't pick up any hidden files, not sure we need to?
+	tar -cvJf $PKG_INSTALL_DIR.tar.xz *
+	cd -
+}
+
+function clean ()
+{
+	echo "Package $MINGW_PKG_NAME using default clean"
+
+	if [ -d "$PKG_INSTALL_DIR" ]; then
+		echo "Removing $PKG_INSTALL_DIR"
+		rm -rf "$PKG_INSTALL_DIR" || exit 1
+	fi
+}
+
 function print_usage ()
 {
 	echo "usage: mingw-pkg [-d] [-h] <command> <package>"

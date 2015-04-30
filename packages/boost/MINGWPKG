@@ -8,19 +8,8 @@ function define_package_env
 	PKG_INSTALL_DIR="$PKG_NAME-${PKG_VERSION}-$ARCH"
 }
 
-function prep
-{
-	echo "$PKG_NAME prep"
-}
-
-function build
-{
-	echo "$PKG_NAME build"
-}
-
 function install
 {
-	echo "$PKG_NAME install"
 	# not packaging them all for now
 	DLLS='
 	libboost_system-mt.dll
@@ -34,9 +23,4 @@ function install
 	do
 		copydll "$i" $PKG_BIN_DIR || exit 1
 	done
-}
-
-function package
-{
-	echo "$PKG_NAME package"
 }
