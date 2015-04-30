@@ -50,13 +50,6 @@ function define_package_env
 	PRODUCT_ID=${PROGRAM_NAME}${MAJOR_VERSION}
 	PRODUCT_EXE=${PRODUCT_NAME}-${VERSION}.exe
 	PRODUCT_ICON=${PRODUCT_NAME}.ico
-
-	# Figure out the Build Type
-	if [ -n "$MINGW_PKG_ENABLE_DEBUG" ]; then
-		PKG_INSTALL_DIR="$PRODUCT_NAME-${VERSION}-$ARCH-dbg"
-	else
-		PKG_INSTALL_DIR="$PRODUCT_NAME-${VERSION}-$ARCH"
-	fi
 }
 
 function prep

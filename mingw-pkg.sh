@@ -131,10 +131,6 @@ function check_pkg_env ()
 		echo "Package $MINGW_PKG_NAME needs to set PKG_VERSION"
 		exit 1
 	fi
-	if [ -z "${PKG_INSTALL_DIR}" ]; then
-		echo "Package $MINGW_PKG_NAME needs to set PKG_INSTALL_DIR"
-		exit 1
-	fi
 }
 
 OPTIND=1
@@ -192,7 +188,13 @@ if [ -z $MINGW_PKG_BUILD_DIR ]; then
 	echo "Installing packages to $MINGW_PKG_BUILD_DIR as MINGW_PKG_BUILD_DIR is not defined"
 fi
 
-PKG_INSTALL_DIR="$MINGW_PKG_BUILD_DIR/$PKG_INSTALL_DIR"
+# Figure out the Build Type
+if [ -n "$MINGW_PKG_ENABLE_DEBUG" ]; then
+	PKG_INSTALL_DIR_NAME="${PKG_NAME}-${PKG_VERSION}-${ARCH}-dbg"
+else
+	PKG_INSTALL_DIR_NAME="${PKG_NAME}-${PKG_VERSION}-${ARCH}"
+fi
+PKG_INSTALL_DIR="$MINGW_PKG_BUILD_DIR/$PKG_INSTALL_DIR_NAME"
 
 if [ -n "${MINGW_PKG_OVERRIDE_INSTALL_DIR}" ]; then
 	PKG_INSTALL_DIR="$MINGW_PKG_OVERRIDE_INSTALL_DIR"

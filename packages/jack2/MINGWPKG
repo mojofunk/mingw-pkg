@@ -5,7 +5,6 @@ function define_package_env
 	PKG_NAME='jack2'
 	PKG_VERSION="1.9.10"
 	PKG_DEPS="gcc portaudio libgnurx"
-	PKG_INSTALL_DIR="$PKG_NAME-${PKG_VERSION}-$ARCH"
 }
 
 function install

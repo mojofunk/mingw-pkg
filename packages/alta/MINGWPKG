@@ -44,13 +44,6 @@ function define_package_env
 	PKG_VERSION="0.1.0"
 
 	cd - || exit 1
-
-	# Figure out the Build Type
-	if [ -n "$MINGW_PKG_ENABLE_DEBUG" ]; then
-		PKG_INSTALL_DIR="$PKG_NAME-${PKG_VERSION}-$ARCH-dbg"
-	else
-		PKG_INSTALL_DIR="$PRG_NAME-${PKG_VERSION}-$ARCH"
-	fi
 }
 
 function prep

@@ -21,7 +21,6 @@ function define_package_env
 	PKG_NAME='gcc'
 	PKG_DEPS='pthread'
 	PKG_VERSION="1"
-	PKG_INSTALL_DIR="$PKG_NAME-$ARCH"
 }
 
 function install

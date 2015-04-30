@@ -5,7 +5,6 @@ function define_package_env
 	PKG_NAME='boost'
 	PKG_VERSION="1.55.0"
 	PKG_DEPS="gcc"
-	PKG_INSTALL_DIR="$PKG_NAME-${PKG_VERSION}-$ARCH"
 }
 
 function install
