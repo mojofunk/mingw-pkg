@@ -87,15 +87,15 @@ function print_usage ()
 function check_pkg_env ()
 {
 	if [ -z "${PKG_NAME}" ]; then
-		"Package $MINGW_PKG_NAME needs to set PKG_NAME"
+		echo "Package $MINGW_PKG_NAME needs to set PKG_NAME"
 		exit 1
 	fi
 	if [ -z "${PKG_VERSION}" ]; then
-		"Package $MINGW_PKG_NAME needs to set PKG_VERSION"
+		echo "Package $MINGW_PKG_NAME needs to set PKG_VERSION"
 		exit 1
 	fi
 	if [ -z "${PKG_INSTALL_DIR}" ]; then
-		"Package $MINGW_PKG_NAME needs to set PKG_INSTALL_DIR"
+		echo "Package $MINGW_PKG_NAME needs to set PKG_INSTALL_DIR"
 		exit 1
 	fi
 }
