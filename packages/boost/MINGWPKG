@@ -16,7 +16,7 @@ function install
 	libboost_unit_test_framework-mt.dll
 	'
 
-	mkdir -p $PKG_BIN_DIR || exit
+	mkdir -p $PKG_BIN_DIR || exit 1
 
 	for i in $DLLS;
 	do
