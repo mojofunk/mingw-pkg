@@ -54,10 +54,6 @@ libxml2-2.dll
 vamp-hostsdk-3.dll
 vamp-sdk-2.dll
 zlib1.dll
-lilv-0.dll
-sratom-0-0.dll
-serd-0-0.dll
-sord-0-0.dll
 '
 
 FEDORA_19_DLLS='
@@ -155,13 +151,6 @@ function install
 	do
 		copydll "$i" $PKG_BIN_DIR || exit 1
 	done
-
-	if [ -n $WITH_LV2 ]; then
-		echo "Copying LV2 utility programs to $PKG_BIN_DIR ..."
-		cp $MINGW_ROOT/bin/lilv-bench.exe $PKG_BIN_DIR
-		cp $MINGW_ROOT/bin/lv2info.exe $PKG_BIN_DIR
-		cp $MINGW_ROOT/bin/lv2ls.exe $PKG_BIN_DIR
-	fi
 
 	#echo "Copying any debug files to $PKG_INSTALL_DIR ..."
 	#cp $MINGW_ROOT/bin/*.debug $PKG_INSTALL_DIR
