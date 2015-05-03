@@ -34,12 +34,12 @@ function build
 	PATH_OPTIONS=${PATH_OPTIONS:="--prefix=/"}
 	TEST_OPTIONS=${TEST_OPTIONS:="--with-tests"}
 	EXAMPLE_OPTIONS=${EXAMPLE_OPTIONS:="--with-examples"}
-	HOSTAPI_OPTIONS=${HOSTAPI_OPTIONS:="--with-wmme --with-directx --with-wdmks"}
+	HOSTAPI_OPTIONS=${HOSTAPI_OPTIONS:="--with-wmme --with-directx --with-wdmks-device-info --with-wasapi --with-asio"}
 
 	$PYTHON ./waf configure $COMMON_OPTIONS $PATH_OPTIONS \
 							$TEST_OPTIONS $EXAMPLE_OPTIONS \
 	                        $HOSTAPI_OPTIONS || exit 1
-	$PYTHON ./waf "$@" || exit 1
+	$PYTHON ./waf -v -j1 "$@" || exit 1
 }
 
 function install
