@@ -219,7 +219,9 @@ do
 	if [ ! -e "$MINGW_PKG_CACHE_DIR/$pkg" ]; then
 		echo "Building package dependency $pkg"
 		$MINGW_PKG_SCRIPT_PATH/mingw-pkg.sh $VERBOSE_FLAGS $DEBUG_FLAGS -i $PKG_INSTALL_DIR $MINGW_PKG_COMMAND $pkg || exit 1
-		touch "$MINGW_PKG_CACHE_DIR/$pkg"
+		if [ $MINGW_PKG_COMMAND == 'install' ]; then
+			touch "$MINGW_PKG_CACHE_DIR/$pkg"
+		fi
 	else
 		echo "Package dependency $pkg already installed"
 	fi
