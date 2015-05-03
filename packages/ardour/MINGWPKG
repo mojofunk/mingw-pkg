@@ -147,7 +147,7 @@ libs/audiographer
 		cp -r gtk2_ardour $PKG_SRC_DIR
 		for i in $SRC_DIRS;
 		do
-		cp -r -p $i $PKG_SRC_DIR/libs
+		cp -r $i $PKG_SRC_DIR/libs
 		done
 		. $MINGW_PKG_DIRECTORY/make-debug-script.sh
 	else
