@@ -12,8 +12,6 @@ function define_package_env
 
 function install
 {
-	echo "$PKG_NAME install"
-
 	if [ $BUILD_HOST == 'Fedora-19' ]; then
 		DLLS=$FEDORA_19_DLLS
 	else
