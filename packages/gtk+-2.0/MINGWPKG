@@ -86,6 +86,14 @@ libiconv-2.dll
 libcppunit-1-13-0.dll
 libpng16-16.dll
 libpython2.7.dll
+libgnutls-30.dll
+libhogweed-4-0.dll
+libnettle-6-0.dll
+libp11-kit-0.dll
+libtasn1-6.dll
+ssleay32.dll
+libsystre-0.dll
+libtre-5.dll
 '
 
 function define_package_env
