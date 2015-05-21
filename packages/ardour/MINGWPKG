@@ -66,11 +66,11 @@ function build
 {
 	COMMON_OPTIONS=${COMMON_OPTIONS:="--noconfirm --use-external-libs --windows-vst --dist-target=mingw --program-name=${PROGRAM_NAME}"}
 	PATH_OPTIONS=${PATH_OPTIONS:="--prefix=/ --configdir=/share"}
-	TEST_OPTIONS=${TEST_OPTIONS:="--test --single-tests"}
 	BACKEND_OPTIONS=${BACKEND_OPTIONS:="--with-backends=dummy,jack,portaudio"}
 
 	if [ -n "$MINGW_PKG_ENABLE_DEBUG" ]; then
 		BUILD_FLAGS="--debug"
+		TEST_OPTIONS=${TEST_OPTIONS:="--test --single-tests"}
 	else
 		BUILD_FLAGS="--optimize"
 	fi
