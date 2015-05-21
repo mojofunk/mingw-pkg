@@ -15,14 +15,12 @@ function install
 	copydll jack-0.dll $PKG_BIN_DIR || exit 1
 	copydll jackserver-0.dll $PKG_BIN_DIR || exit 1
 
-	if [ -n $WITH_JACK ]; then
-		echo "Copying JACK server and drivers to $PKG_BIN_DIR ..."
-		cp $MINGW_ROOT/bin/jackd.exe $PKG_BIN_DIR
-		cp -r $MINGW_ROOT/bin/jack $PKG_BIN_DIR
-	fi
+	cp $MINGW_ROOT/bin/jackd.exe $PKG_BIN_DIR
+	cp -r $MINGW_ROOT/bin/jack $PKG_BIN_DIR
+
+	# should possibly be separate package
 	if [ -n $MINGW_PKG_ENABLE_DEBUG ]; then
 		if [ -n $WITH_JACK ]; then
-			echo "Copying JACK utility programs to $PKG_BIN_DIR ..."
 			cp $MINGW_ROOT/bin/jack_*.exe $PKG_BIN_DIR
 		fi
 	fi
