@@ -124,12 +124,6 @@ function install
 
 	#cp $TOOLS_DIR/README $PKG_INSTALL_DIR
 
-	if test x$WITH_JACK != x; then
-		echo "Copying JACK server and drivers to $PKG_BIN_DIR ..."
-		cp $MINGW_ROOT/bin/jackd.exe $PKG_BIN_DIR
-		cp -r $MINGW_ROOT/bin/jack $PKG_BIN_DIR
-	fi
-
 	# move all lv2 bundles into ardour lv2 bundle path
 	if [ -d "$PKG_LIB_DIR/lv2" ]; then
 		mv "$PKG_LIB_DIR"/lv2/* "$PKG_LIB_DIR/$DATA_DIRNAME/lv2"
