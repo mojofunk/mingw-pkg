@@ -29,7 +29,12 @@ dependencies with PREFIX and install into bundle/package path and then
 also install application into PREFIX.
 
 Another option would be to install binary packages built and maintained
-externally(fedora, msys2 etc) using PREFIX as root.
+externally(fedora, msys2 etc) using PREFIX as root. One problem with this is
+that binary mingw packages in Fedora and MSYS2 aren't split into bin and devel
+packages like in native linux Fedora packages. This means instead of specifying
+what dll's and files to include/copy into a package, everything would be
+installed into package root and we would then need to specify which files to
+remove(headers,dll import libs etc).
 
 # Usage
 
