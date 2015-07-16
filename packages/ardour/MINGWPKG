@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Ardour generates version info from git describe output and then writes it
+# into a revision.cc file during configure/build. Unfortunately as the
+# information is needed here to define package versions etc which is before any
+# source code configuring etc. This is roughly what is contained in
+# ARDOUR_SRC_DIR/tools/define_versions.sh or should be.
 function define_version_env
 {
 	GIT_DESCRIBE=`git describe HEAD`
