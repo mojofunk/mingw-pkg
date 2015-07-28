@@ -153,7 +153,7 @@ while getopts "h?dvi:" opt; do
 done
 shift "$((OPTIND-1))"
 
-if [ -z $1 ] && [ -z $2 ]; then
+if [ -z $1 ] || [ -z $2 ]; then
 		print_usage
 		echo "You must specify command and package name"
 		exit 1
