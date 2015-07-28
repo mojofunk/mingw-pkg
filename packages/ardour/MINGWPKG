@@ -47,7 +47,11 @@ function define_package_env
 
 	define_version_env
 
-	PKG_VERSION=$VERSION
+	if [ $ARDOUR_BRANCH = "master" ]; then
+		PKG_VERSION=$VERSION
+	else
+		PKG_VERSION=$VERSION-$ARDOUR_BRANCH
+	fi
 
 	cd - || exit 1
 
