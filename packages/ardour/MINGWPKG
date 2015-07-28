@@ -136,6 +136,7 @@ function install
 
 SRC_DIRS='
 libs/ardour
+libs/backends
 libs/pbd
 libs/gtkmm2ext
 libs/midi++2
