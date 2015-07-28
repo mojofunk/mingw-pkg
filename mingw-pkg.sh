@@ -181,10 +181,13 @@ export_tools
 define_package_env
 check_pkg_env
 
-# install directly into MINGW_PKG_BUILD_DIR dir if defined
-if [ -z $MINGW_PKG_BUILD_DIR ]; then
-	MINGW_PKG_BUILD_DIR="$MINGW_PKG_SCRIPT_PATH/BUILD"
-	echo "Installing packages to $MINGW_PKG_BUILD_DIR as MINGW_PKG_BUILD_DIR is not defined"
+MINGW_PKG_BUILD_DIR="$MINGW_PKG_SCRIPT_PATH/BUILD"
+mkdir -p $MINGW_PKG_BUILD_DIR
+
+# install directly into MINGW_PKG_INSTALL_DIR dir if defined
+if [ -z $MINGW_PKG_INSTALL_DIR ]; then
+	MINGW_PKG_INSTALL_DIR="$MINGW_PKG_SCRIPT_PATH/INSTALL"
+	echo "Installing packages to $MINGW_PKG_INSTALL_DIR as MINGW_PKG_INSTALL_DIR is not defined"
 fi
 
 # Figure out the Build Type
@@ -193,7 +196,7 @@ if [ -n "$MINGW_PKG_ENABLE_DEBUG" ]; then
 else
 	PKG_INSTALL_DIR_NAME="${PKG_NAME}-${PKG_VERSION}-${ARCH}"
 fi
-PKG_INSTALL_DIR="$MINGW_PKG_BUILD_DIR/$PKG_INSTALL_DIR_NAME"
+PKG_INSTALL_DIR="$MINGW_PKG_INSTALL_DIR/$PKG_INSTALL_DIR_NAME"
 
 if [ -n "${MINGW_PKG_OVERRIDE_INSTALL_DIR}" ]; then
 	PKG_INSTALL_DIR="$MINGW_PKG_OVERRIDE_INSTALL_DIR"
