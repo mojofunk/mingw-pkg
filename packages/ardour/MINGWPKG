@@ -42,7 +42,9 @@ function define_package_env
 	if [ -n "$ARDOUR_BRANCH" ]; then
 		git checkout $ARDOUR_BRANCH || exit 1
 	fi
-	
+
+	ARDOUR_BRANCH=`git rev-parse --abbrev-ref HEAD`
+
 	define_version_env
 
 	PKG_VERSION=$VERSION
@@ -60,11 +62,14 @@ function define_package_env
 
 function prep
 {
-	cd "$ARDOUR_SRC_DIR" || exit 1 
+	PKG_BUILD_DIR="$MINGW_PKG_BUILD_DIR/$PKG_NAME-$ARDOUR_BRANCH-$ARCH"
 
-	if [ -n "$ARDOUR_BRANCH" ]; then
-		git checkout $ARDOUR_BRANCH || exit 1
-	fi
+	echo $PKG_BUILD_DIR
+
+	rsync -av "$ARDOUR_SRC_DIR"/ "$PKG_BUILD_DIR" || exit 1
+
+	echo $PKG_BUILD_DIR
+	cd $PKG_BUILD_DIR || exit 1
 }
 
 function build
