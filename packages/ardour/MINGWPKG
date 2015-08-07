@@ -29,8 +29,14 @@ function define_version_env
 function define_package_env
 {
 	PKG_NAME='ardour'
-	#PKG_DEPS="gtk+-2.0 portaudio portaudio-tests lv2 jack2"
-	PKG_DEPS="gtk+-2.0 portaudio-devel lv2 jack2 midifilter.lv2"
+
+	COMMON_DEPS="gtk+-2.0 portaudio-devel lv2 jack2 midifilter.lv2"
+
+	if [ -n "$MINGW_PKG_ENABLE_DEBUG" ]; then
+		PKG_DEPS="$COMMON_DEPS gdb portaudio-tests"
+	else
+		PKG_DEPS="$COMMON_DEPS"
+	fi
 
 	if [ -z "$ARDOUR_SRC_DIR" ]; then
 		echo "You must define ARDOUR_SRC_DIR in environment to build this package"
