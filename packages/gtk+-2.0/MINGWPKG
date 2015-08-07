@@ -160,12 +160,6 @@ function install
 		copydll "$i" $PKG_BIN_DIR || exit 1
 	done
 
-	#echo "Copying any debug files to $PKG_INSTALL_DIR ..."
-	#cp $MINGW_ROOT/bin/*.debug $PKG_INSTALL_DIR
-
-	echo "Copying gdb and config files to $PKG_INSTALL_DIR ..."
-	cp $MINGW_ROOT/bin/gdb.exe $PKG_BIN_DIR
-
 	echo "Copying Gtk demo to $PKG_BIN_DIR ..."
 	cp $MINGW_ROOT/bin/gtk-demo.exe $PKG_BIN_DIR
 }
