@@ -32,9 +32,12 @@ function build
 {
 	COMMON_OPTIONS=${COMMON_OPTIONS:="--platform=win32 --enable-static"}
 	PATH_OPTIONS=${PATH_OPTIONS:="--prefix=/"}
-	TEST_OPTIONS=${TEST_OPTIONS:="--with-tests"}
-	EXAMPLE_OPTIONS=${EXAMPLE_OPTIONS:="--with-examples"}
 	HOSTAPI_OPTIONS=${HOSTAPI_OPTIONS:="--with-wmme --with-directx --with-wdmks-device-info --with-wasapi --with-asio"}
+
+	if [ -n "$MINGW_PKG_ENABLE_DEBUG" ]; then
+		TEST_OPTIONS=${TEST_OPTIONS:="--with-tests"}
+		EXAMPLE_OPTIONS=${EXAMPLE_OPTIONS:="--with-examples"}
+	fi
 
 	$PYTHON ./waf configure $COMMON_OPTIONS $PATH_OPTIONS \
 							$TEST_OPTIONS $EXAMPLE_OPTIONS \
