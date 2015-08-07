@@ -1,0 +1,17 @@
+#!/bin/bash
+
+function define_package_env
+{
+	PKG_NAME='gdb'
+	PKG_VERSION="7.7"
+	PKG_DEPS="gcc"
+}
+
+function install
+{
+
+	mkdir -p $PKG_BIN_DIR || exit 1
+
+	echo "Copying Gdb to $PKG_BIN_DIR ..."
+	cp $MINGW_ROOT/bin/gdb.exe $PKG_BIN_DIR || exit 1
+}
