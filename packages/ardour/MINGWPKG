@@ -121,6 +121,10 @@ function install
 	mv "$PKG_LIB_DIR/$DATA_DIRNAME"/*.dll "$PKG_BIN_DIR" || exit 1
 	mv "$PKG_LIB_DIR/$DATA_DIRNAME"/*.exe $PKG_BIN_DIR || exit 1
 
+	echo "Overwriting icon files ..."
+
+	cp "$PKG_BUILD_DIR/gtk2_ardour/icons/cursor_square/"* "$DATA_DIR/icons/"
+
 	echo "Deleting import libs ..."
 
 	rm "$PKG_LIB_DIR"/*dll.a
