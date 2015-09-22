@@ -10,6 +10,5 @@ function define_package_env
 function install
 {
 	mkdir -p $PKG_LIB_DIR/lv2 || exit 1
-
-	cp -r $MINGW_ROOT/lib/lv2/$PKG_NAME $PKG_LIB_DIR/lv2
+	cp -r $MINGW_ROOT/lib/lv2/$PKG_NAME/ $PKG_LIB_DIR/lv2
 }
