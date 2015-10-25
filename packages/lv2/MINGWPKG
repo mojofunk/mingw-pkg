@@ -3,7 +3,7 @@
 function define_package_env
 {
 	PKG_NAME='lv2'
-	PKG_VERSION="1.8"
+	PKG_VERSION="1.12"
 	PKG_DEPS="gcc"
 }
 
@@ -12,8 +12,8 @@ function install
 	DLLS='
 	lilv-0.dll
 	sratom-0-0.dll
-	serd-0-0.dll
-	sord-0-0.dll
+	serd-0.dll
+	sord-0.dll
 	'
 
 	mkdir -p $PKG_BIN_DIR || exit 1
