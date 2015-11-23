@@ -30,7 +30,7 @@ function prep
 
 function build
 {
-	COMMON_OPTIONS=${COMMON_OPTIONS:="--platform=win32 --enable-static"}
+	COMMON_OPTIONS=${COMMON_OPTIONS:="--platform=win32 --enable-static --enable-debug-output"}
 	PATH_OPTIONS=${PATH_OPTIONS:="--prefix=/"}
 	HOSTAPI_OPTIONS=${HOSTAPI_OPTIONS:="--with-wmme --with-directx --with-wdmks-device-info --with-wasapi --with-asio"}
 

@@ -4,7 +4,7 @@ function define_package_env
 {
 	PKG_NAME='portaudio-tests'
 	PKG_VERSION="2.0"
-	PKG_DEPS="gcc portaudio"
+	PKG_DEPS="gcc portaudio-devel"
 }
 
 function install
