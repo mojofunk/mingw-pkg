@@ -50,4 +50,11 @@ function install
 	echo "$PKG_NAME install"
 
 	$PYTHON ./waf --destdir=$PKG_INSTALL_DIR install || exit 1
+
+	if [ -n "$MINGW_PKG_ENABLE_DEBUG" ]; then
+		PKG_SRC_DIR="$PKG_INSTALL_DIR/src/portaudio"
+		echo "Copying source files to $PKG_SRC_DIR ..."
+		mkdir -p $PKG_SRC_DIR
+		cp -r src $PKG_SRC_DIR
+	fi
 }
