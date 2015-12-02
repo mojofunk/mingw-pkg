@@ -59,7 +59,7 @@ function build
 {
 	COMMON_OPTIONS=${COMMON_OPTIONS:=""}
 	PATH_OPTIONS=${PATH_OPTIONS:="--prefix=/"}
-	TEST_OPTIONS=${TEST_OPTIONS:="--with-single-tests"}
+	TEST_OPTIONS=${TEST_OPTIONS:="--with-tests"}
 
 	if [ -z "$MINGW_PKG_ENABLE_DEBUG" ]; then
 		BUILD_FLAGS="--optimize"
