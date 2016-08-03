@@ -1,0 +1,18 @@
+lib/ardour4/vamp/ dll names are different to official Ardour package, probably
+related to rythem ferret crash.
+
+lib/ardour4/suil/ no directory of suil_in_gtk.dll like official
+
+lib/ardour4/LV2/ no lv2core.lv2 directory like official package
+
+pango modules are built into pango in official package
+
+gdk-pixbuf loaders are built into gdk in official package 
+
+move evoral/pbd/ardour test data into /share/ardour4/test/libname
+
+not using ardour clearlooks lib
+
+lv2 packages installed into $PKG_LIB_DIR/lv2 are not discovered by ardour, only
+in lib/ardour4/LV2
+
