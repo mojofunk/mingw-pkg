@@ -24,6 +24,8 @@ function detect_build_host ()
 		BUILD_HOST='Fedora-20'
 	elif [ $(grep -ow -E [[:digit:]]+ /etc/system-release) == "21" ]; then
 		BUILD_HOST='Fedora-21'
+	elif [ $(grep -ow -E [[:digit:]]+ /etc/system-release) == "24" ]; then
+		BUILD_HOST='Fedora-24'
 	elif [ -n "${MSYSTEM}" ]; then
 		BUILD_HOST='MSYS2'
 		set_msys2_env
