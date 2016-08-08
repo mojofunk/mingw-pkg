@@ -30,7 +30,7 @@ function define_package_env
 {
 	PKG_NAME='ardour'
 
-	COMMON_DEPS="gtk+-2.0 portaudio-devel lv2 jack2 midifilter.lv2"
+	COMMON_DEPS="gtk+-2.0 portaudio-devel lv2 midifilter.lv2"
 
 	if [ -n "$MINGW_PKG_ENABLE_DEBUG" ]; then
 		PKG_DEPS="$COMMON_DEPS gdb portaudio-tests"
@@ -86,7 +86,7 @@ function build
 {
 	COMMON_OPTIONS=${COMMON_OPTIONS:="--noconfirm --use-external-libs --windows-vst --dist-target=mingw --program-name=${PROGRAM_NAME}"}
 	PATH_OPTIONS=${PATH_OPTIONS:="--prefix=/ --configdir=/share"}
-	BACKEND_OPTIONS=${BACKEND_OPTIONS:="--with-backends=dummy,jack,portaudio"}
+	BACKEND_OPTIONS=${BACKEND_OPTIONS:="--with-backends=dummy,portaudio"}
 
 	if [ -n "$MINGW_PKG_ENABLE_DEBUG" ]; then
 		BUILD_FLAGS="--debug"
