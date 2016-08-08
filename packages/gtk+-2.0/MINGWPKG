@@ -80,6 +80,15 @@ libcppunit-1-12-1.dll
 libssl-10.dll
 '
 
+FEDORA_24_DLLS='
+libcrypto-10.dll
+iconv.dll
+libpng16-16.dll
+libcppunit-1-12-1.dll
+libssl-10.dll
+libpcre-1.dll
+'
+
 MSYS2_DLLS='
 libeay32.dll
 libiconv-2.dll
@@ -100,7 +109,7 @@ function define_package_env
 {
 	PKG_NAME='gtk+-2.0'
 	PKG_VERSION="2.24"
-	PKG_DEPS="gcc"
+	PKG_DEPS="gcc libgnurx"
 }
 
 function install
@@ -116,6 +125,9 @@ function install
 	elif [ $BUILD_HOST == 'Fedora-21' ]; then
 		DLLS=$COMMON_DLLS$FEDORA_21_DLLS
 		echo "Using Fedora 21 DLL list"
+	elif [ $BUILD_HOST == 'Fedora-24' ]; then
+		DLLS=$COMMON_DLLS$FEDORA_24_DLLS
+		echo "Using Fedora 24 DLL list"
 	elif [ $BUILD_HOST == 'MSYS2' ]; then
 		DLLS=$COMMON_DLLS$MSYS2_DLLS
 		echo "Using MSYS2 DLL list"
