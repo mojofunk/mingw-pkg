@@ -84,7 +84,8 @@ function prep
 
 function build
 {
-	COMMON_OPTIONS=${COMMON_OPTIONS:="--noconfirm --use-external-libs --windows-vst --dist-target=mingw --program-name=${PROGRAM_NAME}"}
+	#COMMON_OPTIONS=${COMMON_OPTIONS:="--noconfirm --use-external-libs --windows-vst --dist-target=mingw --cxx11 --program-name=${PROGRAM_NAME}"}
+	COMMON_OPTIONS=${COMMON_OPTIONS:="--noconfirm --windows-vst --dist-target=mingw --cxx11 --program-name=${PROGRAM_NAME}"}
 	PATH_OPTIONS=${PATH_OPTIONS:="--prefix=/ --configdir=/share"}
 	BACKEND_OPTIONS=${BACKEND_OPTIONS:="--with-backends=dummy,portaudio"}
 
