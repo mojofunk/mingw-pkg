@@ -1,0 +1,16 @@
+#!/bin/bash
+
+function define_package_env
+{
+	PKG_NAME='libarchive'
+	PKG_VERSION="3.1.2"
+	PKG_DEPS="xz-libs"
+}
+
+function install
+{
+	echo "$PKG_NAME install"
+	DLL="libarchive-13.dll"
+	mkdir -p $PKG_BIN_DIR || exit 1
+	copydll $DLL $PKG_BIN_DIR
+}
