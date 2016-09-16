@@ -1,0 +1,15 @@
+#!/bin/bash
+
+function define_package_env
+{
+	PKG_NAME='xz-libs'
+	PKG_VERSION="5.1.2"
+}
+
+function install
+{
+	echo "$PKG_NAME install"
+	DLL="liblzma-5.dll"
+	mkdir -p $PKG_BIN_DIR || exit 1
+	copydll $DLL $PKG_BIN_DIR
+}
