@@ -89,7 +89,7 @@ function build
 	BACKEND_OPTIONS=${BACKEND_OPTIONS:="--with-backends=dummy,portaudio"}
 
 	if [ -n "$MINGW_PKG_ENABLE_DEBUG" ]; then
-		BUILD_FLAGS="--debug"
+		BUILD_FLAGS="--debug --backtrace --debug-symbols"
 		TEST_OPTIONS=${TEST_OPTIONS:="--test --single-tests"}
 	else
 		BUILD_FLAGS="--optimize"
