@@ -30,6 +30,9 @@ function detect_build_host ()
 		fi
 	elif [ -n "${MSYSTEM}" ]; then
 		BUILD_HOST='MSYS2'
+		if [ "${MSYSTEM}" == 'MINGW64' ]; then
+			ARCH="x86_64"
+		fi
 		set_msys2_env
 	else
 		echo "Cannot determine build host....exiting"
