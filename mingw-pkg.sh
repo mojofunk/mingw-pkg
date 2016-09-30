@@ -18,14 +18,16 @@ function set_msys2_env ()
 
 function detect_build_host ()
 {
-	if [ $(grep -ow -E [[:digit:]]+ /etc/system-release) == "19" ]; then
-		BUILD_HOST='Fedora-19'
-	elif [ $(grep -ow -E [[:digit:]]+ /etc/system-release) == "20" ]; then
-		BUILD_HOST='Fedora-20'
-	elif [ $(grep -ow -E [[:digit:]]+ /etc/system-release) == "21" ]; then
-		BUILD_HOST='Fedora-21'
-	elif [ $(grep -ow -E [[:digit:]]+ /etc/system-release) == "24" ]; then
-		BUILD_HOST='Fedora-24'
+	if [ -f /etc/system-release ]; then
+		if [ $(grep -ow -E [[:digit:]]+ /etc/system-release) == "19" ]; then
+			BUILD_HOST='Fedora-19'
+		elif [ $(grep -ow -E [[:digit:]]+ /etc/system-release) == "20" ]; then
+			BUILD_HOST='Fedora-20'
+		elif [ $(grep -ow -E [[:digit:]]+ /etc/system-release) == "21" ]; then
+			BUILD_HOST='Fedora-21'
+		elif [ $(grep -ow -E [[:digit:]]+ /etc/system-release) == "24" ]; then
+			BUILD_HOST='Fedora-24'
+		fi
 	elif [ -n "${MSYSTEM}" ]; then
 		BUILD_HOST='MSYS2'
 		set_msys2_env
