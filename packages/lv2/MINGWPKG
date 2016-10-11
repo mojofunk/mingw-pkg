@@ -11,7 +11,7 @@ function install
 {
 	DLLS='
 	lilv-0.dll
-	sratom-0-0.dll
+	sratom-0.dll
 	serd-0.dll
 	sord-0.dll
 	'
