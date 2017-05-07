@@ -27,6 +27,8 @@ function detect_build_host ()
 			BUILD_HOST='Fedora-21'
 		elif [ $(grep -ow -E [[:digit:]]+ /etc/system-release) == "24" ]; then
 			BUILD_HOST='Fedora-24'
+		elif [ $(grep -ow -E [[:digit:]]+ /etc/system-release) == "25" ]; then
+			BUILD_HOST='Fedora-25'
 		else
 			echo "Cannot determine build host....exiting"
 			exit 1
