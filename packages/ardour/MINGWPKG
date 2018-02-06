@@ -76,7 +76,7 @@ function prep
 
 	echo $PKG_BUILD_DIR
 
-	rsync -av --delete --exclude /build "$ARDOUR_SRC_DIR"/ "$PKG_BUILD_DIR" || exit 1
+	rsync -av --delete --exclude /build --exclude /.lock* --exclude /.waf* --exclude libs/ardour/config_text.cc "$ARDOUR_SRC_DIR"/ "$PKG_BUILD_DIR" || exit 1
 
 	echo $PKG_BUILD_DIR
 	cd $PKG_BUILD_DIR || exit 1
