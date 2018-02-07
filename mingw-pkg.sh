@@ -61,7 +61,7 @@ function export_tools ()
 	export LINK_CXX=${LINK_CXX:=$HOST-g++}
 	export WINRC=${WINRC:=$HOST-windres}
 	export STRIP=${STRIP:=$HOST-strip}
-	export PYTHON=${PYTHON:=python}
+	export PYTHON=${PYTHON:=python3}
 }
 
 function define_standard_dirs
